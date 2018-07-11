@@ -25,8 +25,8 @@ $(function() {
 		$(".covers_btn2").click(function() {
 			$(".cover").hide();
 			$(this).parent().parent().hide();
-			$(".rules_cover,.rules_footer").hide();
-			$(".rules_con").css("height","95vw");
+			// $(".rules_cover,.rules_footer").hide();
+			// $(".rules_con").css("height","95vw");
 		});
 	}
 	Init();
