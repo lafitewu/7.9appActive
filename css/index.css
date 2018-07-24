@@ -14,7 +14,7 @@ a:hover{color:#c00; text-decoration:none;}
 	top: 0;
 	background: rgba(39,40,34,.6);
 }
-.covers1,.covers2,.covers3 {
+.covers1,.covers2,.covers3,.covers4 {
 	z-index: 101;
 	position: fixed;
 	left: 0;
@@ -66,13 +66,15 @@ a:hover{color:#c00; text-decoration:none;}
 		border-radius: 90px;
 	}
 
-.covers2,.covers3 {
+.covers2,.covers3,.covers4 {
 	width: 80%;
 	height: 85vw;
 	display: none;
 }
-
-	.covers_btn1,.covers_btn2 {
+.covers4 {
+	height: 72vw;
+}
+	.covers_btn1,.covers_btn2,.covers_btn3 {
 		/*height: 12vw;
 		line-height: 12vw;*/
 		margin-top: 4vw;
@@ -258,6 +260,7 @@ a:hover{color:#c00; text-decoration:none;}
 						top: -5vw;
 						left: 5vw;
 						width: 260%;
+						display: none;
 					}
 						.task_icon_already img {
 							width: 100%;

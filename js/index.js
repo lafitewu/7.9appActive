@@ -3,9 +3,6 @@ $(function() {
 		$(".rules_cover,.rules_footer").hide();
 		$(".rules_con").css("height","95vw");
 	});
-	$('.pointer').click(function (){
-    	Rotate();
-    });
 	$(".covers_quit").click(function() {
 		$(".cover").fadeOut(500);
 		$(this).parent().fadeOut(500);
@@ -19,7 +16,7 @@ $(function() {
 		$(".covers_btn").click(function() {
 			$(".cover").hide();
 			$(this).parent().hide();
-			Rotate();
+			// Rotate();
 		});
 
 		$(".covers_btn2").click(function() {
@@ -42,47 +39,30 @@ $(function() {
         });
     };
     var bRotate = false;
+    var rotateFn;
+    // var rotateFn = function (awards, angles, txt){
+    //     bRotate = !bRotate;
+    //     $('#rotate').stopRotate();
+    //     $('#rotate').rotate({
+    //         angle:0,
+    //         animateTo:angles+2825,
+    //         duration:8000,
+    //         callback:function (){
+    //         	initCover(4,txt);
+    //             bRotate = !bRotate;
+    //         }
+    //     })
+    // };
 
-    var rotateFn = function (awards, angles, txt){
-        bRotate = !bRotate;
-        $('#rotate').stopRotate();
-        $('#rotate').rotate({
-            angle:0,
-            animateTo:angles+2825,
-            duration:8000,
-            callback:function (){
-            	$(".cover,.covers2").show();
-            	// $('.cover_fuck,.cover_quit').css({"display": "block","animation": "action_translateY 2s linear", "animation-fill-mode":"forwards"});
-                // $(".cover_fuck").text("+"+parseInt(txt));
-                $(".covers2 .covers_font span").text(txt);
-                bRotate = !bRotate;
-            }
-        })
-    };
-
-    var time = 2;
-    function Rotate() {
+    function Rotate(time,index) {
     	// 防止多次点击
     	if(bRotate)return;
-    	// var Url3 = testname+"/yfax-htt-api/api/htt/doHolidayActivityLuckyDraw";
-    	// $.post(Url3,{"phoneNum": uid1,"access_token": token1},function(res){
-			// var times = res.data.remainlotteryTimes,
-			// 	item = res.data.resultCode;
-			// $(".cover_num span").text(times);
-			// var item = 1;
-			// console.log(res);
-			// if(item == -1) {
-				// alert("抽奖次数已用完");
-			// }else {
-				// $('.cover_fuck').hide();
-			time--;
 			if(time <=0) {
-				console.log("covers3");
 				$(".cover,.covers3").show();
 			}else {
-				var item = 3;
+				// var item = 3;
 
-				switch (item) {
+				switch (index) {
 		            case 0:
 		                rotateFn(0, 360, '20金币');
 		                break;
@@ -115,8 +95,146 @@ $(function() {
 		                break;   
 		        }
 			}
-				
-			// }  
-	    // });
+			time--;
+    };
+    var initCover = function(index,text) {
+    	$(".cover,.covers"+index).show();
+        $(".covers"+index+" .covers_font span").text(text);
     }
+    function getQueryString(name) {
+	    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+	    var r = window.location.search.substr(1).match(reg);
+	    if (r != null) {
+	        return unescape(r[2]);
+	    }
+	    return null;
+	}
+    function apiFn() {
+    	var uid = getQueryString('uid');
+    		// uid = "3243423";
+		var token = getQueryString('token'),
+			hostname = "http://182.92.82.188:8084";
+
+			// {"phoneNum": uid}
+		$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
+			var Gold = res.data.leftGold,
+				status1 = res.data.readTask.isR2m,
+				status2 = res.data.readTask.isR4m,
+				status3 = res.data.videoTask.isV3m,
+				status4 = res.data.videoTask.isV6m,
+				mount = res.data.leftAmount;
+			$(".turn_font_left font").text(Gold);
+			$(".turn_font_right font").text(mount);
+
+			// 阅读任务
+			if(status1 == 0) {
+				$(".task_read .status1_icon").attr("src","images/task_draw_reward_red_img.gif");
+				$(".task_read .task_icon1 .task_icon_already").show();
+				$(".task_read .status2_icon").attr("src","images/task_draw_reward_gray_img.png");
+			}else {
+				$(".task_read .status1_icon").attr("src","images/task_draw_reward_green_img.png");
+				if(status2 == 0) {
+					$(".task_read .status2_icon").attr("src","images/task_draw_reward_red_img.gif");
+					$(".task_read .task_icon2 .task_icon_already").show();
+				}else {
+					$(".task_read .status2_icon").attr("src","images/task_draw_reward_green_img.png");
+				}
+			}
+
+			// 视频任务
+			if(status3 == 0) {
+				$(".task_video .status1_icon").attr("src","images/task_draw_reward_red_img.gif");
+				$(".task_video .task_icon1 .task_icon_already").show();
+				$(".task_video .status2_icon").attr("src","images/task_draw_reward_gray_img.png");
+			}else {
+				$(".task_video .status1_icon").attr("src","images/task_draw_reward_green_img.png");
+				if(status4 == 0) {
+					$(".task_video .status2_icon").attr("src","images/task_draw_reward_red_img.gif");
+					$(".task_video .task_icon2 .task_icon_already").show();
+				}else {
+					$(".task_video .status2_icon").attr("src","images/task_draw_reward_green_img.png");
+				}
+			}
+			
+			// 当抽奖次数小于1,打开页面不自动弹窗
+			if(mount < 1) {
+				$(".cover,.covers1").hide();
+				mount = 0;
+			}else {
+				$(".covers1 .covers_font font").text(mount);
+					rotateFn = function (awards, angles, txt){
+			        bRotate = !bRotate;
+			        $('#rotate').stopRotate();
+			        $('#rotate').rotate({
+			            angle:0,
+			            animateTo:angles+2825,
+			            duration:8000,
+			            callback:function (){
+			            	initCover(4,txt);
+			                bRotate = !bRotate;
+			            }
+			        })
+			    };
+			}
+
+
+			// 点击抽奖
+			$(".covers_home").click(function() {
+				$.get(hostname+"/yfax-htt-api/api/htt/doLotteryAward",{phoneNum: uid,type: 0, gold: 0},function(res){
+					console.log(res.data.index);
+					Rotate(mount,res.data.index);
+					mount--;
+					$(".turn_font_right font").text(mount);
+					// setTimeout(function(){
+					// 	$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
+					// 		console.log(res.data);
+					// 		Gold = res.data.leftGold;
+					// 		$(".turn_font_left font").text(Gold);
+					// 		$(".turn_font_right font").text(mount);
+					// 	});
+					// },500);
+				});
+			});
+
+			$(".covers_btn1,.pointer").click(function() {
+				$.get(hostname+"/yfax-htt-api/api/htt/doLotteryAward",{phoneNum: uid,type: 0, gold: 0},function(res){
+					Rotate(mount,res.data.index);
+					mount--;
+					if(mount < 0) {
+						mount = 0;
+					}
+					$(".turn_font_right font").text(mount);
+					// setTimeout(function(){
+					// 	$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
+					// 		console.log(res.data);
+					// 		Gold = 800;
+					// 		$(".turn_font_left font").text(Gold);
+					// 		$(".turn_font_right font").text(mount);
+					// 	});
+					// },500);
+				});
+			});
+
+			$(".covers_btn3").click(function() {
+				$.get(hostname+"/yfax-htt-api/api/htt/doLotteryAward",{phoneNum: uid,type: 1, gold: 200},function(res){
+					Rotate(100,res.data.index);
+					mount--;
+					if(mount < 0) {
+						mount = 0;
+					}
+					$(".turn_font_right font").text(mount);
+					setTimeout(function(){
+						$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
+							console.log(res.data);
+							Gold = res.data.leftGold;
+							$(".turn_font_left font").text(Gold);
+							$(".turn_font_right font").text(mount);
+						});
+					},500);
+				});
+			});
+			console.log(mount);
+		});
+    }
+    apiFn();
 })
