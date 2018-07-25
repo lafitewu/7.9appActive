@@ -123,7 +123,8 @@ $(function() {
 	}
     function apiFn() {
     	var uid = getQueryString('uid');
-    		uid = "1644a3a0c041113";
+    	console.log(uid);
+    		// uid = "1644a3a0c041113";
 		var token = getQueryString('token'),
 			hostname = "http://182.92.82.188:8084";
 
