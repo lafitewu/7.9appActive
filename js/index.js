@@ -127,7 +127,7 @@ $(function() {
 		var token = getQueryString('token'),
 			hostname = "http://182.92.82.188:8084";
 			// token = "2b93e6f5-655b-4faa-9442-c9736b8d78f4";
-
+			$(".Float_herf").attr("href","list.html?uid="+uid);
 			// {"phoneNum": uid}
 		$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
 			var Gold = res.data.leftGold,
