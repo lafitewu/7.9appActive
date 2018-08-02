@@ -123,10 +123,10 @@ $(function() {
 	}
     function apiFn() {
     	var uid = getQueryString('uid');
-    	console.log(uid);
-    		// uid = "1644a3a0c041113";
+    		// uid = "164ef6a8de31112";
 		var token = getQueryString('token'),
 			hostname = "http://182.92.82.188:8084";
+			// token = "2b93e6f5-655b-4faa-9442-c9736b8d78f4";
 
 			// {"phoneNum": uid}
 		$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
@@ -175,37 +175,44 @@ $(function() {
 				$(".cover,.covers1").hide();
 				mount = 0;
 			}else {
+				console.log('54534');
 				$(".covers1 .covers_font font").text(mount);
-				rotateFn();
+				// rotateFn();
 			}
 
 
 			// 点击抽奖
-			$(".covers_home").click(function() {
-				$.get(hostname+"/yfax-htt-api/api/htt/doLotteryAward",{phoneNum: uid,type: 0, gold: 0},function(res){
-					if(res.data != null) {
-						Rotate(mount,res.data.index);
-						mount--;
-						$(".turn_font_right font").text(mount);
-						// setTimeout(function(){
-						// 	$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
-						// 		console.log(res.data);
-						// 		Gold = res.data.leftGold;
-						// 		$(".turn_font_left font").text(Gold);
-						// 		$(".turn_font_right font").text(mount);
-						// 	});
-						// },500);
-					}else {
-						$(".cover,.covers3").show();
-					}
+			// $(".covers_home").click(function() {
+			// 	console.log(mount);
+			// 	$.get(hostname+"/yfax-htt-api/api/htt/doLotteryAward",{phoneNum: uid,type: 0, gold: 0},function(res){
+			// 		console.log(res);
+			// 		if(res.data != null) {
+			// 			console.log(res.data);
+			// 			console.log(mount);
+			// 			Rotate(mount,res.data.index);
+			// 			mount--;
+			// 			$(".turn_font_right font").text(mount);
+			// 			// setTimeout(function(){
+			// 			// 	$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
+			// 			// 		console.log(res.data);
+			// 			// 		Gold = res.data.leftGold;
+			// 			// 		$(".turn_font_left font").text(Gold);
+			// 			// 		$(".turn_font_right font").text(mount);
+			// 			// 	});
+			// 			// },500);
+			// 		}else {
+			// 			$(".cover,.covers3").show();
+			// 		}
 					
-				},function(err) {
-					console.log(err);
-				});
-			});
+			// 	},function(err) {
+			// 		console.log(err);
+			// 	});
+			// });
 
-			$(".covers_btn1,.pointer").click(function() {
+			$(".covers_home,.covers_btn1,.pointer").click(function() {
+				console.log("888888");
 				$.get(hostname+"/yfax-htt-api/api/htt/doLotteryAward",{phoneNum: uid,type: 0, gold: 0},function(res){
+					console.log(res);
 					if(res.data != null) {
 						Rotate(mount,res.data.index);
 						mount--;
@@ -244,7 +251,7 @@ $(function() {
 								$(".turn_font_left font").text(Gold);
 								$(".turn_font_right font").text(mount);
 							});
-						},500);
+						},8000);
 					}else {
 						$(".cover,.covers3").show();
 					}
