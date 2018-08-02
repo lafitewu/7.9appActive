@@ -9,6 +9,8 @@ function getQueryString(name) {
 function InitFn() {
 	var hostname = "http://182.92.82.188:8084";
 	var uid = getQueryString('uid');
+	console.log(uid);
+		// uid = "13322806902";
 	$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryAwardHis",{phoneNum: uid},function(res){
 		console.log(res.data);
 		for(var i = 0, Len = res.data.length; i < Len; i++) {
