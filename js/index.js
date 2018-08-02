@@ -251,7 +251,7 @@ $(function() {
 								$(".turn_font_left font").text(Gold);
 								$(".turn_font_right font").text(mount);
 							});
-						},8000);
+						},8500);
 					}else {
 						$(".cover,.covers3").show();
 					}
