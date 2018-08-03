@@ -221,14 +221,14 @@ $(function() {
 							mount = 0;
 						}
 						$(".turn_font_right font").text(mount);
-						// setTimeout(function(){
-						// 	$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
-						// 		console.log(res.data);
-						// 		Gold = 800;
-						// 		$(".turn_font_left font").text(Gold);
-						// 		$(".turn_font_right font").text(mount);
-						// 	});
-						// },500);
+						setTimeout(function(){
+							$.get(hostname+"/yfax-htt-api/api/htt/queryLotteryUserInfo",{phoneNum: uid},function(res){
+								console.log(res.data);
+								Gold = res.data.leftGold;
+								$(".turn_font_left font").text(Gold);
+								$(".turn_font_right font").text(mount);
+							});
+						},8500);
 					}else {
 						$(".cover,.covers3").show();
 					}
