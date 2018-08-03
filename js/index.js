@@ -125,7 +125,8 @@ $(function() {
     	var uid = getQueryString('uid');
     		// uid = "164ef6a8de31112";
 		var token = getQueryString('token'),
-			hostname = "http://182.92.82.188:8084";
+			// hostname = "http://182.92.82.188:8084";
+			hostname = "http://callback.ytoutiao.com";
 			// token = "2b93e6f5-655b-4faa-9442-c9736b8d78f4";
 			$(".Float_herf").attr("href","list.html?uid="+uid);
 			// {"phoneNum": uid}
