@@ -7,7 +7,8 @@ function getQueryString(name) {
     return null;
 }
 function InitFn() {
-	var hostname = "http://182.92.82.188:8084";
+	// var hostname = "http://182.92.82.188:8084";
+	var hostname = "http://callback.ytoutiao.com";
 	var uid = getQueryString('uid');
 	console.log(uid);
 		// uid = "13322806902";
