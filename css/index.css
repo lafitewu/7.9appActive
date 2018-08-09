@@ -13,6 +13,7 @@ a:hover{color:#c00; text-decoration:none;}
 	position: fixed;
 	top: 0;
 	background: rgba(39,40,34,.6);
+	display: none;
 }
 .covers1,.covers2,.covers3,.covers4 {
 	z-index: 101;
