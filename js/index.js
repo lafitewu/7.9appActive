@@ -176,6 +176,7 @@ $(function() {
 				$(".cover,.covers1").hide();
 				mount = 0;
 			}else {
+				$(".cover,.covers1").show();
 				$(".covers1 .covers_font font").text(mount);
 				// rotateFn();
 			}
